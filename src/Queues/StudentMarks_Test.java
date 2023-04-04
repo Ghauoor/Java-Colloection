@@ -15,17 +15,28 @@ public class StudentMarks_Test {
         studentMarksList.add(new StudentMarks(97, 98));
         studentMarksList.add(new StudentMarks(20, 56));
 
-        PriorityQueue<StudentMarks> studentMarksPriorityQueue =
-                new PriorityQueue<>(studentMarksList);
+//        PriorityQueue<StudentMarks> studentMarksPriorityQueue =
+//                new PriorityQueue<>(studentMarksList);
+
+        PriorityQueue<StudentMarks> spq =
+                new PriorityQueue<StudentMarks>(
+                        (s1, s2) -> {
+                            System.out.println(
+                                    "Comparator's compareTo() is Called"
+                            );
+                            return s2.getPhysics() - s1.getPhysics();
+                        });
+
+        spq.addAll(studentMarksList);
 
         List<StudentMarks> topThree = new ArrayList<>();
         int index = 0;
 
-        while (!studentMarksPriorityQueue.isEmpty()) {
+        while (!spq.isEmpty()) {
             if (index == 3)
                 break;
 
-            topThree.add(studentMarksPriorityQueue.poll());
+            topThree.add(spq.poll());
             index++;
         }
 
